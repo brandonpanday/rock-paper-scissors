@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
 </head>
-<body onload="game()">
+<body>
+    <p>Open your console and refresh to play.</p>
     <script>
-
         let playerWins = 0;
         let computerWins = 0;
         function computerPlay() {
@@ -20,13 +20,13 @@
             if (playerSelection == "Rock" && computerSelection == "Scissors" || playerSelection == "Paper" && computerSelection == "Rock" || 
             playerSelection == "Scissors" && computerSelection == "Paper") {
                 playerWins++;
-                return "You Win! " + playerSelection + " beats " + computerSelection;
+                return "You win this round. " + playerSelection + " beats " + computerSelection;
             }
             if (playerSelection == computerSelection) {
-                return "It's a draw!";
+                return "It's a draw.";
             } else {
                 computerWins++;
-                return "You Lose! " + computerSelection + " beats " + playerSelection;
+                return "You lose this round. " + computerSelection + " beats " + playerSelection;
             }
         };
         function getInput() {
@@ -34,9 +34,6 @@
             input = input.toLowerCase();
             input = input.charAt(0).toUpperCase() + input.slice(1);
             return input;
-        }
-        function countWins() {
-
         }
         function game() {
             while (playerWins < 5 && computerWins < 5) {
@@ -50,6 +47,7 @@
                 console.log("You lose! The Computer was the first to 5 rounds.");
             }
         };
+        window.onload(game());
     </script>
 </body>
 </html>
