@@ -4,50 +4,111 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="stylesheet.css" type="text/css" rel="stylesheet">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <p>Open your console and refresh to play.</p>
+    <div class="container">
+        <div class="results">
+            <div class="player"><img src='images/person.svg'/></div>
+            <div class="versus">
+                <img src="images/swords-sword-svgrepo-com.svg">
+            </div>
+            <div class="computer"><img src='images/robot.svg'/></div>
+        </div>
+        <div class="options">
+            <div class="hands" id="rock"></div>
+            <div class="hands" id="paper"></div>
+            <div class="hands" id="scissors"></div>
+        </div>
+    </div>
+    
+
+
     <script>
-        let playerWins = 0;
-        let computerWins = 0;
-        function computerPlay() {
+        // Computer generates random hand.
+        function getComputer() {
             const hands = ["Rock", "Paper", "Scissors"];
-            let getRandom = Math.floor(Math.random() * 3);
-            return hands[getRandom];
+            let randomNumber = Math.floor(Math.random() * 3);
+            let computerChoice = hands[randomNumber];
+            console.log("Computer choice:" + computerChoice);
+            return computerChoice;
         };
-        function playRound(playerSelection, computerSelection) {
+
+        // Compare player choice versus computer choice
+        function checkWin(playerSelection, computerSelection) {
             if (playerSelection == "Rock" && computerSelection == "Scissors" || playerSelection == "Paper" && computerSelection == "Rock" || 
             playerSelection == "Scissors" && computerSelection == "Paper") {
-                playerWins++;
-                return "You win this round. " + playerSelection + " beats " + computerSelection;
+                console.log("YouwiN");
+                return 1;
             }
             if (playerSelection == computerSelection) {
-                return "You draw this round.";
-            } else {
-                computerWins++;
-                return "You lose this round. " + computerSelection + " beats " + playerSelection;
+                console.log("You draw this round.");
+                return 2;
+            } 
+            else {
+                console.log("You lose");
+                return 3;
             }
         };
-        function getInput() {
-            let input = prompt("Rock, Paper or Scissors?", "Paper");
-            input = input.toLowerCase();
-            input = input.charAt(0).toUpperCase() + input.slice(1);
-            return input;
+
+        // Set colors to user
+        function setColor(winLose) {
+            let player = document.querySelector('.player');
+            let computer = document.querySelector('.computer');
+            if (winLose == 1) {
+                player.classList.add('win');
+                computer.classList.add('lose');
+
+            } else if (winLose == 2) {
+                player.classList.add('draw');
+                computer.classList.add('draw');
+
+            } else {
+                player.classList.add('lose');
+                computer.classList.add('win');
+
+            }
         }
-        function game() {
-            while (playerWins < 5 && computerWins < 5) {
-                let user = getInput();
-                let computer = computerPlay();
-                console.log(playRound(user, computer));
-            }
-            if (playerWins > computerWins) {
-                console.log("You win! You were the first to 5 rounds.");
-            } else {
-                console.log("You lose! The Computer was the first to 5 rounds.");
-            }
-        };
-        window.onload(game());
+
+        // reset styles
+        function reset() {
+            let player = document.querySelector('.player');
+            let computer = document.querySelector('.computer');
+            player.classList.remove('win', 'lose', 'draw');
+            player.classList.add('default');
+            computer.classList.remove('win', 'lose', 'draw');
+            computer.classList.add('default');
+
+        }
+
+        // Main function to execute round
+        function playRound(playerChoice) {
+            let computerChoice = getComputer();
+            let isWin = checkWin(playerChoice, computerChoice);
+            setColor(isWin);
+            setTimeout(reset, 700);
+        }
+
+        // Event Listeners for Rock, Paper and Scissors
+        const rock = document.querySelector('#rock');
+        rock.addEventListener('click', function() {
+            let playerChoice = "Rock";
+            playRound(playerChoice);
+        })
+
+        const paper = document.querySelector('#paper');
+        paper.addEventListener('click', function() {
+            let playerChoice = "Paper";
+            playRound(playerChoice);
+        })
+
+        const scissors = document.querySelector('#scissors');
+        scissors.addEventListener('click', function() {
+            let playerChoice = "Scissors";
+            playRound(playerChoice);
+        })
+
     </script>
 </body>
 </html>

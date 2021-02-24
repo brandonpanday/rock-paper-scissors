@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #0D0D0D;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.results {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 500px;
+    height: 300px;
+    margin: 0 auto;
+}
+.player, .computer {
+    width: 140px;
+    height: 140px;
+    padding: 1em;
+    background-color: black;
+    border: 5px solid transparent;
+}
+.versus {
+    width: 50px;
+    height: 50px;
+}
+
+/* Win / Lose Class Toggles */
+.default {
+    border: 5px solid #262626;
+    transition: 0.7s;
+}
+.draw {
+    border: 5px solid blue;
+    transition: 0.7s;
+}
+.win {
+    border: 5px solid #C3F25E;
+    transition: 0.7s;
+}
+
+.lose {
+    border: 5px solid #F25252;
+    transition: 0.7s;
+}
+
+
+/* Choices, rock / paper / scissors */
+.options {
+    display: flex;
+    margin: 0 auto;
+    
+}
+.hands {
+    width: 80px;
+    height: 80px;
+    margin: 0 1em;
+    border: 5px solid #173840;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.hands:hover {
+    border: 5px solid #F2B035;
+    transform: scale(1.1);
+}
+#rock {
+    background: url(images/Rock.svg); 
+    background-color: black;
+}
+#paper {
+    background: url(images/Paper.svg);
+    background-color: black;
+}
+#scissors {
+    background: url(images/Scissors.svg);
+    background-color: black;
+}
