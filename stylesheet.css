@@ -5,12 +5,47 @@
 }
 body {
     background-color: #0D0D0D;
+    font-family: sans-serif;
+}
+.popup {
+    width: 240px;
+    height: 140px;
+    background-color: black;
+    border: 1px solid #173840;
+    text-align: center;
+    margin: 3em auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.message {
+    font-size: 1.4em;
+    color: white;
+}
+.play-again {
+    color: white;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    background-color: #171426;
+    border: 1px solid white;
+    cursor: pointer;
+}
+.play-again:hover {
+    color: white;
+    background-color: #203359;
+    color: rgb(71,136,199);
+    border: 1px solid white;
+
 }
 .container {
     display: flex;
     flex-direction: column;
 }
-.results {
+.stage {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -23,7 +58,10 @@ body {
     height: 140px;
     padding: 1em;
     background-color: black;
-    border: 5px solid transparent;
+    border: 5px solid grey;
+}
+.player-score, .robot-score {
+    font-size: 1.4em;
 }
 .versus {
     width: 50px;
@@ -32,22 +70,22 @@ body {
 
 /* Win / Lose Class Toggles */
 .default {
-    border: 5px solid #262626;
+    border: 5px solid #173840;
     transition: 0.7s;
 }
 .draw {
-    border: 5px solid blue;
+    border: 5px solid #1975FF;
     transition: 0.7s;
 }
 .win {
-    border: 5px solid #C3F25E;
+    border: 5px solid #B5E617;
+    transition: 0.7s;
+}
+.lose {
+    border: 5px solid #FF1E00;
     transition: 0.7s;
 }
 
-.lose {
-    border: 5px solid #F25252;
-    transition: 0.7s;
-}
 
 
 /* Choices, rock / paper / scissors */
@@ -65,7 +103,7 @@ body {
     cursor: pointer;
 }
 .hands:hover {
-    border: 5px solid #F2B035;
+    border: 5px solid rgb(78,143,227);
     transform: scale(1.1);
 }
 #rock {
@@ -80,3 +118,27 @@ body {
     background: url(images/Scissors.svg);
     background-color: black;
 }
+
+.results {
+    margin: 3em auto;
+    width: 450px;
+    height: auto;
+    background-color: black;
+    overflow: auto;
+    border: 1px solid #173840;
+    text-align: center;
+    padding: .7em 1em;
+}
+.result {
+    color: lightgrey;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.player-score {
+    color: #B5E617;
+}
+.robot-score {
+    color: #FF1E00;
+}
+

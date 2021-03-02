@@ -8,24 +8,82 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+
+    <div class="popup">
+        <h3 class="message"></h3><br>
+        <span class="play-again">Play Again</span>
+    </div>
     <div class="container">
-        <div class="results">
+        
+        <div class="stage">
+            <span class="player-score">0</span>
             <div class="player"><img src='images/person.svg'/></div>
             <div class="versus">
                 <img src="images/swords-sword-svgrepo-com.svg">
             </div>
             <div class="computer"><img src='images/robot.svg'/></div>
+            <span class="robot-score">0</span>
         </div>
         <div class="options">
             <div class="hands" id="rock"></div>
             <div class="hands" id="paper"></div>
             <div class="hands" id="scissors"></div>
         </div>
+        <div class="results">
+            <p class="result">Choose your weapon.</p>
+        </div>
     </div>
     
 
 
     <script>
+        let player = document.querySelector('.player-score');
+        let robot = document.querySelector('.robot-score');
+        let playerWins = 0;
+        let robotWins = 0;
+
+        function stopGame() {
+            if (player.textContent == "5" || robot.textContent == "5") {
+                setTimeout(popUp, 300);
+            
+            }
+        }
+
+        function popUp() {
+            let container = document.querySelector('.container');
+            let popup = document.querySelector('.popup');
+            let message = document.querySelector('.message');
+            container.style.display = "none";
+            popup.style.display = "flex";
+            if (playerWins == 5) {
+                message.textContent = "Congrats!";
+            }
+            else {
+                message.textContent = "Nice try!";
+            }
+            
+        }
+
+        const playAgain = document.querySelector('.play-again');
+        playAgain.addEventListener('click', function() {
+            let container = document.querySelector('.container');
+            let popup = document.querySelector('.popup');
+            container.style.display = "flex";
+            popup.style.display = "none";
+            reset();
+        })
+
+        function reset() {
+            let result = document.querySelector('.result');
+            result.style['color'] = "grey";
+            result.textContent = "Choose your weapon."
+            playerWins = 0;
+            robotWins = 0;
+            player.textContent = playerWins;
+            robot.textContent = robotWins;
+        }
+
+        
         // Computer generates random hand.
         function getComputer() {
             const hands = ["Rock", "Paper", "Scissors"];
@@ -36,18 +94,27 @@
         };
 
         // Compare player choice versus computer choice
-        function checkWin(playerSelection, computerSelection) {
+        function checkWin(playerSelection, computerSelection) { 
+            let result = document.querySelector('.result');
             if (playerSelection == "Rock" && computerSelection == "Scissors" || playerSelection == "Paper" && computerSelection == "Rock" || 
             playerSelection == "Scissors" && computerSelection == "Paper") {
-                console.log("YouwiN");
+                console.log("You win this round.");
+                result.style['color'] = '#B5E617';
+                result.textContent = playerSelection + " beats " + computerSelection + " . You win this round."
+                playerWins++;
                 return 1;
             }
             if (playerSelection == computerSelection) {
                 console.log("You draw this round.");
+                result.style['color'] = '#1975FF';
+                result.textContent = "You draw this round."
                 return 2;
             } 
             else {
-                console.log("You lose");
+                console.log("You lose this round.");
+                result.style['color'] = '#FF1E00';
+                result.textContent = computerSelection + " beats " + playerSelection + " . You lose this round."
+                robotWins++;
                 return 3;
             }
         };
@@ -58,21 +125,30 @@
             let computer = document.querySelector('.computer');
             if (winLose == 1) {
                 player.classList.add('win');
-                computer.classList.add('lose');
 
             } else if (winLose == 2) {
                 player.classList.add('draw');
                 computer.classList.add('draw');
 
             } else {
-                player.classList.add('lose');
-                computer.classList.add('win');
+                computer.classList.add('lose');
 
             }
         }
 
+        function updateScore(num) {
+            let player = document.querySelector('.player-score');
+            let robot = document.querySelector('.robot-score');
+            if (num == 1) {
+                player.textContent = playerWins;
+            }
+            if (num == 3) {
+                robot.textContent = robotWins;
+            }
+        }
+
         // reset styles
-        function reset() {
+        function resetStyles() {
             let player = document.querySelector('.player');
             let computer = document.querySelector('.computer');
             player.classList.remove('win', 'lose', 'draw');
@@ -87,7 +163,9 @@
             let computerChoice = getComputer();
             let isWin = checkWin(playerChoice, computerChoice);
             setColor(isWin);
-            setTimeout(reset, 700);
+            setTimeout(resetStyles, 700);
+            updateScore(isWin);
+            setTimeout(stopGame, 200);
         }
 
         // Event Listeners for Rock, Paper and Scissors
